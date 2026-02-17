@@ -1,20 +1,20 @@
 # Backend V1 Plan: ZenList Core Domain
 
 ## Summary
-- Build `/Users/faiz/faiz/personal/zenlist/backend/go-graphql` as a Go GraphQL backend using `gqlgen`, `sqlc + pgx`, PostgreSQL, and `golang-migrate`.
+- Build `backend/go-graphql` as a Go GraphQL backend using `gqlgen`, `sqlc + pgx`, PostgreSQL, and `golang-migrate`.
 - Implement first-phase entities and flows: single-user profile, projects, user-global labels, tasks, and one-level subtasks.
 - Support task scheduling (`startAt`, `dueAt`), deadlines, priority (`P1`-`P5`), status (`TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE`), and multi-label assignment.
 - Apply soft delete for core entities and cursor pagination + status/priority filters for list queries.
 
 ## Architecture and Repository Layout
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/cmd/api/main.go`: app bootstrap, HTTP server, GraphQL endpoint, health endpoint.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/internal/config`: environment config parsing.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/internal/db`: pgx pool initialization and transaction helpers.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/internal/store`: sqlc-generated queries and thin repository wrappers.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/internal/service`: business rules/validation for profile, projects, labels, tasks.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/schema`: GraphQL SDL files.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/graph`: gqlgen generated types + resolver implementations.
-- `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/migrations`: SQL migration files.
+- `backend/go-graphql/cmd/api/main.go`: app bootstrap, HTTP server, GraphQL endpoint, health endpoint.
+- `backend/go-graphql/internal/config`: environment config parsing.
+- `backend/go-graphql/internal/db`: pgx pool initialization and transaction helpers.
+- `backend/go-graphql/internal/store`: sqlc-generated queries and thin repository wrappers.
+- `backend/go-graphql/internal/service`: business rules/validation for profile, projects, labels, tasks.
+- `backend/go-graphql/schema`: GraphQL SDL files.
+- `backend/go-graphql/graph`: gqlgen generated types + resolver implementations.
+- `backend/go-graphql/migrations`: SQL migration files.
 
 ## Data Model (PostgreSQL)
 1. `users`
@@ -112,7 +112,7 @@
 - All reads exclude `deleted_at IS NOT NULL`.
 
 ## Data Access and Query Strategy
-- `sqlc` owns SQL in `/Users/faiz/faiz/personal/zenlist/backend/go-graphql/internal/store/sql`.
+- `sqlc` owns SQL in `backend/go-graphql/internal/store/sql`.
 - Cursor pagination uses `(created_at, id)` tuple encoded as opaque base64 cursor.
 - Default ordering:
 - Projects: `created_at DESC, id DESC`
