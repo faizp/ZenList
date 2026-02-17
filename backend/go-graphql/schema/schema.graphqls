@@ -1,0 +1,185 @@
+scalar Time
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+}
+
+enum TaskPriority {
+  P1
+  P2
+  P3
+  P4
+  P5
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  timezone: String!
+  avatarUrl: String
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type Project {
+  id: ID!
+  userId: ID!
+  title: String!
+  description: String
+  color: String
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type Label {
+  id: ID!
+  userId: ID!
+  name: String!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+type Task {
+  id: ID!
+  userId: ID!
+  projectId: ID!
+  parentTaskId: ID
+  title: String!
+  description: String
+  status: TaskStatus!
+  priority: TaskPriority!
+  startAt: Time
+  dueAt: Time
+  completedAt: Time
+  createdAt: Time!
+  updatedAt: Time!
+  labels: [Label!]!
+  subtasks: [Task!]!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+}
+
+type ProjectEdge {
+  cursor: String!
+  node: Project!
+}
+
+type ProjectConnection {
+  edges: [ProjectEdge!]!
+  pageInfo: PageInfo!
+}
+
+type LabelEdge {
+  cursor: String!
+  node: Label!
+}
+
+type LabelConnection {
+  edges: [LabelEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskEdge {
+  cursor: String!
+  node: Task!
+}
+
+type TaskConnection {
+  edges: [TaskEdge!]!
+  pageInfo: PageInfo!
+}
+
+type DeletePayload {
+  id: ID!
+  deletedAt: Time!
+}
+
+input UpsertMeInput {
+  name: String!
+  email: String!
+  timezone: String!
+  avatarUrl: String
+}
+
+input CreateProjectInput {
+  title: String!
+  description: String
+  color: String
+}
+
+input UpdateProjectInput {
+  id: ID!
+  title: String!
+  description: String
+  color: String
+}
+
+input CreateLabelInput {
+  name: String!
+}
+
+input UpdateLabelInput {
+  id: ID!
+  name: String!
+}
+
+input CreateTaskInput {
+  projectId: ID!
+  parentTaskId: ID
+  title: String!
+  description: String
+  status: TaskStatus = TODO
+  priority: TaskPriority = P3
+  startAt: Time
+  dueAt: Time
+  labelIds: [ID!]
+}
+
+input UpdateTaskInput {
+  id: ID!
+  title: String
+  description: String
+  status: TaskStatus
+  priority: TaskPriority
+  startAt: Time
+  dueAt: Time
+  labelIds: [ID!]
+}
+
+type Query {
+  me: User!
+  projects(first: Int = 20, after: String): ProjectConnection!
+  project(id: ID!): Project
+  labels(first: Int = 50, after: String): LabelConnection!
+  tasks(
+    projectId: ID!
+    parentTaskId: ID
+    statuses: [TaskStatus!]
+    priorities: [TaskPriority!]
+    first: Int = 20
+    after: String
+  ): TaskConnection!
+  task(id: ID!): Task
+}
+
+type Mutation {
+  upsertMe(input: UpsertMeInput!): User!
+  createProject(input: CreateProjectInput!): Project!
+  updateProject(input: UpdateProjectInput!): Project!
+  deleteProject(id: ID!): DeletePayload!
+
+  createLabel(input: CreateLabelInput!): Label!
+  updateLabel(input: UpdateLabelInput!): Label!
+  deleteLabel(id: ID!): DeletePayload!
+
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(input: UpdateTaskInput!): Task!
+  deleteTask(id: ID!): DeletePayload!
+}

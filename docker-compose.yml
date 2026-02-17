@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: zenlist-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: zenlist
+      POSTGRES_PASSWORD: zenlist
+      POSTGRES_DB: zenlist
+      TZ: UTC
+    ports:
+      - "5432:5432"
+    volumes:
+      - zenlist_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zenlist -d zenlist"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  zenlist_postgres_data:
