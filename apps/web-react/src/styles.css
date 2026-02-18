@@ -1,0 +1,181 @@
+:root {
+  font-family: "SF Mono", Menlo, Monaco, "Courier New", monospace;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #101114;
+  background: #f6f7fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #f6f7fb 0%, #eceff8 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.page {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header,
+.panel {
+  background: #ffffff;
+  border: 1px solid #d8dcef;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.form-grid label,
+fieldset {
+  display: grid;
+  gap: 0.25rem;
+}
+
+fieldset {
+  border: 1px dashed #d8dcef;
+  border-radius: 6px;
+  padding: 0.55rem;
+}
+
+input,
+select,
+button {
+  border: 1px solid #c8cedf;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  background: #fff;
+}
+
+button {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+  cursor: pointer;
+}
+
+button[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+pre {
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid #d8dcef;
+  border-radius: 8px;
+  padding: 0.6rem;
+  background: #f8faff;
+}
+
+.two-col {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.three-col {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+.actions-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.filters label {
+  display: inline-flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+.success {
+  color: #065f46;
+}
+
+.error {
+  color: #991b1b;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid #c8cedf;
+  background: #edf2ff;
+  font-size: 0.82rem;
+}
+
+.chip-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0.35rem 0;
+}
+
+.task-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.task-card {
+  border: 1px solid #d8dcef;
+  border-radius: 8px;
+  padding: 0.7rem;
+  background: #fcfdff;
+}
+
+.subtasks {
+  margin-top: 0.6rem;
+  border-top: 1px dashed #d8dcef;
+  padding-top: 0.5rem;
+}
+
+.subtask-item {
+  padding: 0.35rem 0;
+}
+
+@media (min-width: 960px) {
+  .two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .three-col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
