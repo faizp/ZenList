@@ -170,6 +170,25 @@ pre {
   padding: 0.35rem 0;
 }
 
+.panel-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+.github-link {
+  color: #0f172a;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.github-link:hover {
+  opacity: 1;
+}
+
 @media (min-width: 960px) {
   .two-col {
     grid-template-columns: 1fr 1fr;
